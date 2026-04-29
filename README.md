@@ -41,9 +41,9 @@ O projeto foi desenvolvido como portfólio prático de desenvolvimento backend e
 
 | Camada | Tecnologia |
 |---|---|
-| Backend | Python 3.11, FastAPI, SQLAlchemy, Pydantic |
-| Banco de dados | SQLite (desenvolvimento) |
-| Frontend | HTML5, CSS3, JavaScript (vanilla) |
+| Backend | Python, FastAPI, SQLAlchemy |
+| Banco de dados | SQLite |
+| Frontend | HTML5, CSS3, JavaScript |
 | Servidor | Uvicorn |
 
 ## Estrutura do projeto
@@ -91,8 +91,7 @@ pip install fastapi uvicorn sqlalchemy
 uvicorn main:app --reload
 ```
 
-A API estará disponível em `http://127.0.0.1:8000`.
-A documentação interativa estará em `http://127.0.0.1:8000/docs`.
+A API estará disponível em `http://localhost:5500`.
 
 **Para o painel frontend:**
 
@@ -173,9 +172,9 @@ The project was built as a practical fullstack portfolio piece, focusing on data
 
 | Layer | Technology |
 |---|---|
-| Backend | Python 3.11, FastAPI, SQLAlchemy, Pydantic |
-| Database | SQLite (development) |
-| Frontend | HTML5, CSS3, vanilla JavaScript |
+| Backend | Python, FastAPI, SQLAlchemy |
+| Database | SQLite |
+| Frontend | HTML5, CSS3, JavaScript |
 | Server | Uvicorn |
 
 ## Project structure
@@ -223,8 +222,7 @@ pip install fastapi uvicorn sqlalchemy
 uvicorn main:app --reload
 ```
 
-The API will be available at `http://127.0.0.1:8000`.  
-Interactive API docs at `http://127.0.0.1:8000/docs`.
+The API will be available at `http://localhost:5500`.  
 
 **For the frontend panel:**
 
