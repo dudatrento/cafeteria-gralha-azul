@@ -88,10 +88,10 @@ def criar_pedido(dados: PedidoCreate, db: Session = Depends(get_db)):
 
 @router.get("/hoje")
 def pedidos_do_dia(db: Session = Depends(get_db)):
-    hoje = datetime.now().date()
+    hoje = datetime.now().date().isoformat()  # ex: "2026-04-27"
 
     pedidos = db.query(Pedido).filter(
-        cast(Pedido.criado_em, Date) == hoje
+        Pedido.criado_em.like(f"{hoje}%")
     ).options(
         joinedload(Pedido.itens).joinedload(ItemPedido.item_cardapio)
         .joinedload(ItemCardapio.categoria)
@@ -102,24 +102,20 @@ def pedidos_do_dia(db: Session = Depends(get_db)):
 
 @router.get("/fila")
 def fila_de_preparo(db: Session = Depends(get_db)):
-    """
-    Retorna pedidos pendentes ou em preparo,
-    com itens ordenados por prioridade de categoria.
-    """
-    hoje = datetime.now().date()
+    hoje = datetime.now().date().isoformat()
 
     pedidos = db.query(Pedido).filter(
-        cast(Pedido.criado_em, Date) == hoje,
+        Pedido.criado_em.like(f"{hoje}%"),
         Pedido.status.in_(["pendente", "em_preparo"])
     ).options(
         joinedload(Pedido.itens).joinedload(ItemPedido.item_cardapio)
         .joinedload(ItemCardapio.categoria)
     ).order_by(Pedido.criado_em).all()
 
-    # Ordena os itens de cada pedido pela prioridade da categoria
     for pedido in pedidos:
         pedido.itens.sort(
             key=lambda i: i.item_cardapio.categoria.prioridade
+            if i.item_cardapio and i.item_cardapio.categoria else 99
         )
 
     return pedidos

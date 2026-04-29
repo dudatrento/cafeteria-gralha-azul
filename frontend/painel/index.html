@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gralha Azul — Painel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/painel.css" />
+</head>
+<body>
+
+  <header class="ga-header">
+    <div class="ga-logo">Gralha Azul <span>painel interno</span></div>
+    <div class="ga-clock" id="ga-clock">--:--:--</div>
+  </header>
+
+  <nav class="ga-nav">
+    <button class="ga-nav-btn active" data-tela="pedidos">pedidos do dia</button>
+    <button class="ga-nav-btn" data-tela="fila">fila de preparo</button>
+    <button class="ga-nav-btn" data-tela="cardapio">cardápio</button>
+    <button class="ga-nav-btn" data-tela="estoque">estoque</button>
+    <button class="ga-nav-btn" data-tela="clientes">clientes</button>
+  </nav>
+
+  <main class="ga-content">
+
+    <!-- tela: pedidos do dia -->
+    <section id="tela-pedidos">
+
+      <div class="ga-stats">
+        <div class="ga-stat">
+          <div class="ga-stat-label">total hoje</div>
+          <div class="ga-stat-value muted" id="stat-total">0</div>
+        </div>
+        <div class="ga-stat">
+          <div class="ga-stat-label">em aberto</div>
+          <div class="ga-stat-value" id="stat-aberto">0</div>
+        </div>
+        <div class="ga-stat">
+          <div class="ga-stat-label">concluídos</div>
+          <div class="ga-stat-value green" id="stat-concluidos">0</div>
+        </div>
+        <div class="ga-stat">
+          <div class="ga-stat-label">delivery</div>
+          <div class="ga-stat-value muted" id="stat-delivery">0</div>
+        </div>
+      </div>
+
+      <div class="ga-filters">
+        <button class="ga-filter-btn active" data-filtro="todos">todos</button>
+        <button class="ga-filter-btn" data-filtro="pendente">pendente</button>
+        <button class="ga-filter-btn" data-filtro="em_preparo">em preparo</button>
+        <button class="ga-filter-btn" data-filtro="pronto">pronto</button>
+        <button class="ga-filter-btn" data-filtro="entregue">entregue</button>
+        <button class="ga-filter-btn" data-filtro="local">local</button>
+        <button class="ga-filter-btn" data-filtro="delivery">delivery</button>
+        <button class="ga-filter-btn refresh" id="btn-atualizar">↻ atualizar</button>
+      </div>
+
+      <div class="ga-pedidos" id="ga-pedidos">
+        <div class="ga-loading">carregando pedidos...</div>
+      </div>
+
+    </section>
+
+    <!-- tela: fila de preparo -->
+    <section id="tela-fila" style="display:none;">
+
+        <div class="fila-header">
+            <div class="fila-titulo">fila de preparo</div>
+            <button class="ga-filter-btn refresh" onclick="carregarFila()">↻ atualizar</button>
+        </div>
+
+        <div class="ga-pedidos" id="ga-fila">
+            <div class="ga-loading">carregando fila...</div>
+        </div>
+
+    </section>
+
+    <!-- tela: estoque -->
+    <section id="tela-estoque" style="display:none;">
+
+        <div class="fila-header">
+            <div class="fila-titulo">controle de estoque</div>
+            <button class="ga-filter-btn refresh" onclick="carregarEstoque()">↻ atualizar</button>
+  </div>
+
+        <div id="ga-estoque">
+            <div class="ga-loading">carregando estoque...</div>
+        </div>
+
+    </section>
+
+    <!-- tela: clientes -->
+    <section id="tela-clientes" style="display:none;">
+
+        <div class="fila-header">
+            <div class="fila-titulo">clientes</div>
+            <button class="ga-btn primary" style="flex:none;width:auto;padding:6px 16px;"
+      onclick="mostrarFormCadastro()">
+      + novo cliente
+            </button>
+        </div>
+
+        <div class="clientes-busca">
+            <input
+                type="text"
+                id="busca-telefone"
+                class="estoque-input"
+                style="width:280px"
+                placeholder="buscar por telefone..."
+            />
+            <button class="ga-btn primary" onclick="buscarCliente()">buscar</button>
+        </div>
+
+        <div id="ga-cliente-resultado"></div>
+
+    </section>
+
+    <!-- tela: cardápio -->
+    <section id="tela-cardapio" style="display:none;">
+
+        <div class="fila-header">
+        <div class="fila-titulo">cardápio</div>
+            <div style="display:flex;gap:8px;">
+        <button class="ga-filter-btn refresh" onclick="carregarCardapio()">↻ atualizar</button>
+        <button class="ga-btn primary" style="flex:none;width:auto;padding:6px 16px;"
+            onclick="mostrarFormNovoItem()">
+            + novo item
+        </button>
+        </div>
+    </div>
+
+    <div id="ga-cardapio-form" style="display:none;margin-bottom:1.25rem;"></div>
+
+    <div id="ga-cardapio">
+        <div class="ga-loading">carregando cardápio...</div>
+    </div>
+
+    </section>
+
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/pedidos.js"></script>
+  <script src="js/fila.js"></script>
+  <script src="js/estoque.js"></script>
+  <script src="js/clientes.js"></script>
+  <script src="js/cardapio.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>
